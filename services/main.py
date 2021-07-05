@@ -96,7 +96,5 @@ def get_distribution(vesting_end_block=None):
             mapping = {address:"{:.18f}".format(address_record.cumulative_percentage) for address, address_record in address_mapping.items()}
             f.write(json.dumps(mapping))
 
-
-
 if __name__ == '__main__':
     get_distribution()

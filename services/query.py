@@ -2,6 +2,7 @@ import requests
 import math
 from datetime import datetime
 from decimal import Decimal
+
 CREAM_SUBGRAPH_URL = 'https://api.thegraph.com/subgraphs/name/creamfinancedev/cream-portfolio-mainnet'
 BLOCKLYTICS_SUBGRAPH_URL = 'https://api.thegraph.com/subgraphs/name/blocklytics/ethereum-blocks'
 class AbstractQuery:
@@ -42,7 +43,6 @@ class MintEventQuery(AbstractQuery):
     def get_next_query_string(self, block_number_threshold):
         return self.mint_event_query_string_template.format(vesting_end_block=self.vesting_end_block, block_number_threshold=block_number_threshold, contract_address=self.contract_address)
 
-
 class RedeemEventQuery(AbstractQuery):
     event_name = 'redeemEvents'
     redeem_event_query_string_template = """
@@ -58,7 +58,6 @@ class RedeemEventQuery(AbstractQuery):
     """
     def get_next_query_string(self, block_number_threshold):
         return self.redeem_event_query_string_template.format(vesting_end_block=self.vesting_end_block,block_number_threshold=block_number_threshold, contract_address=self.contract_address)
-
 
 class TransferEventQuery(AbstractQuery):
     event_name = 'transferEvents'
