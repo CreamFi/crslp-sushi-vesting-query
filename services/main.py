@@ -38,9 +38,9 @@ def get_event_type(event):
     else:
         raise Exception('event type not recognized')
 
-def get_distribution(vesting_end_block=None):
-    print(vesting_end_block)
+def get_distribution(vesting_end_block):
     for symbol, contract_address in CRSLP_CONTRACT_ADDRESSES.items():
+        print(f'processing {symbol}')
         # process events
         events = get_events(contract_address, symbol, vesting_end_block)
         if events:
