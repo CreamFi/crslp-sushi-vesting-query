@@ -6,11 +6,11 @@ pip3 install -r requirements.txt
 ```
 
 ## Run
-execute the run.py program with parameter ```claim-date``` in the format of YYYY-MM-DD
+execute the run.py program with parameter ```e``` for vesting end block number
 
 ```
 # example
-python3 run.py --claim-date 2021-09-05
+python3 run.py --e 99999999
 ```
 ## Note
 Starting on 2021-03-29, SushiSwap no longer requires earned rewards to be vested for 6 months. See [link](https://docs.sushi.com/faq-1/vesting-faq)

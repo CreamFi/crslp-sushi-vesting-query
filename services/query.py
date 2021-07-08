@@ -91,6 +91,6 @@ def get_block_number(datetime_object):
     timestamp = int(datetime.timestamp(datetime_object))
     query_string = f"{{blocks(first: 1, orderBy: timestamp, orderDirection: desc, where: {{ timestamp_lte: {timestamp} }}) {{number}}}}"
     resp = requests.post(BLOCKLYTICS_SUBGRAPH_URL, json={'query':query_string})
-    return resp.json()['data']['blocks'][0]['number']
+    return int(resp.json()['data']['blocks'][0]['number'])
 
 

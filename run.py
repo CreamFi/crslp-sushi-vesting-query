@@ -7,11 +7,10 @@ from services.main import get_distribution
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--claim-date', help='yyyy-mm-dd')
+    parser.add_argument('-e', help='end block')
     args = parser.parse_args()
-    claim_date = datetime.strptime(args.claim_date, '%Y-%m-%d')
-    vesting_end_date = claim_date + relativedelta(months=-6)
-    sushi_vesting_cutoff_date = datetime(year=2021, month=3, day=29)
-    vesting_end_date = sushi_vesting_cutoff_date if vesting_end_date > sushi_vesting_cutoff_date else vesting_end_date
-    get_distribution(get_block_number(vesting_end_date))
+    vesting_end_block = int(args.e)
+    vesting_cutoff_block = get_block_number(datetime(year=2021, month=3, day=29))
+    vesting_end_block = vesting_cutoff_block if vesting_end_block > vesting_cutoff_block else vesting_end_block
+    get_distribution(vesting_end_block)
 

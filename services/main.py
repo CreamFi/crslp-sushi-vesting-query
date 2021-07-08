@@ -43,6 +43,7 @@ def get_distribution(vesting_end_block):
         print(f'processing {symbol}')
         # process events
         events = get_events(contract_address, symbol, vesting_end_block)
+        address_mapping = {}
         if events:
             lower_contract_address = contract_address.lower()
             events = [e for e in events if lower_contract_address not in (e.get('to'), e.get('from'))] # remove transfer events that are related to mint/redeem events
@@ -50,7 +51,6 @@ def get_distribution(vesting_end_block):
             # initiate 
             pool_start_block_time = events[0]['blockTime']
             pool_balance = Decimal('0.0')
-            address_mapping = {}
             for event in sorted_events:
                 event_type = get_event_type(event)
                 block_time = event['blockTime']
