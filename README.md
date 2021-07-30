@@ -10,7 +10,7 @@ execute the run.py program with parameter ```e``` for vesting end block number a
 
 ```
 # example
-python3 run.py --e 99999999
+python3 run.py -e 99999999 -p PATH-TO-BLACKLIST-AMOUNT-FILE 
 ```
 ## Note
 Starting on 2021-03-29, SushiSwap no longer requires earned rewards to be vested for 6 months. See [link](https://docs.sushi.com/faq-1/vesting-faq)
