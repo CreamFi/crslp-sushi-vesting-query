@@ -4,6 +4,7 @@ from services.query import get_events
 import enum
 import json
 import os
+import warnings
 
 CRSLP_CONTRACT_ADDRESSES = {
     'crSLP-WBTC-ETH':'0x73f6cBA38922960b7092175c0aDD22Ab8d0e81fC',
@@ -38,8 +39,11 @@ def get_event_type(event):
     else:
         raise Exception('event type not recognized')
 
-def get_distribution(vesting_end_block):
+def get_distribution(vesting_end_block, pool_vested_sushi_amounts):
     for symbol, contract_address in CRSLP_CONTRACT_ADDRESSES.items():
+        pool_vested_sushi_amount = pool_vested_sushi_amounts.get(contract_address, 0)
+        if not pool_vested_sushi_amounts:
+            warnings.warn(f"blacklist amount is zero for contract {contract_address}. Please make sure the provided blacklist amount is correct. Ignore this warning if you are sure it's zero", UserWarning)
         print(f'processing {symbol}')
         # process events
         events = get_events(contract_address, symbol, vesting_end_block)
@@ -93,7 +97,7 @@ def get_distribution(vesting_end_block):
         if not os.path.isdir(OUTPUT_PATH):
             os.mkdir(OUTPUT_PATH)
         with open(os.path.join(OUTPUT_PATH, f'{symbol}.json'), 'w') as f:
-            mapping = {address:"{:.18f}".format(address_record.cumulative_percentage) for address, address_record in address_mapping.items()}
+            mapping = {address:"{:.18f}".format(address_record.cumulative_percentage * pool_vested_sushi_amount) for address, address_record in address_mapping.items()}
             f.write(json.dumps(mapping))
 
 if __name__ == '__main__':

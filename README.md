@@ -6,7 +6,7 @@ pip3 install -r requirements.txt
 ```
 
 ## Run
-execute the run.py program with parameter ```e``` for vesting end block number
+execute the run.py program with parameter ```e``` for vesting end block number and ```p``` for the path to blacklist amount json file
 
 ```
 # example
